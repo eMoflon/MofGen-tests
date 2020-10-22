@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: TestModelsCollections;singleton:=true
+Bundle-Name: TestModelsCollections
+Bundle-Version: 0.0.1
+Require-Bundle: org.eclipse.emf.ecore,
+ mofgen.api,
+ mofgen,
+ GlossarDocumentation
+Bundle-ManifestVersion: 2
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: TestModels.api,
+ TestModels.api.generators,
+ TestModelsCollections.api.generators
