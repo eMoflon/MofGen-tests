@@ -13,11 +13,45 @@ gen listTest(){
 	}
 	
 	return container
+} 
+
+gen listAddTest(){
+	List l1 of String 
+	l1.add("Ich")
+	l1.add("bin")
+	List l2 = ["Teil", "eines", "vollständigen", "und", "fehlerfreien"]
+	l1.addAll(l2)   
+	l1.add("Satzes.") 
+	 
+	var container = createContainer()
+	for name in l1 {
+		addDocToContainer(container, name)  
+	}
+	  
+	return container
+}
+
+gen mapPutTest(){  
+	Map m1 of (Integer, String)
+	m1.put(1, "Du")   
+	m1.put(2, "bin")   
+	m1.put(3, "Teil")
+	m1.put(4, "eines") 
+	m1.put(5, "Satzes")   
+	m1.put(1, "Ich") 
+	 
+	var container = createContainer()
+	for m1-entries->name { 
+		addDocToContainer(container, name)  
+	}
+	for m1-keys->name {
+		addDocToContainer(container, name)     
+	}
+	  
+	return container
 }
 
 gen mapTestEntries(){
-	// TODO unique names!
-//	Map m1 = [("one", "DocUno"), ("one", "DocDeux"), ("one", "DocTrois")] //TODO validation for same key names in map declaration
 	Map m1 = [("one", "DocUno"), ("two", "DocDeux"), ("three", "DocTrois")] 
 		var container = createContainer()
 	
@@ -25,12 +59,10 @@ gen mapTestEntries(){
 		addDocToContainer(container, name)        
 	}
 	
-	return container
+	return container  
 }
 
 gen mapTestKeys(){
-	// TODO unique names!
-//	Map m1 = [("one", "DocUno"), ("one", "DocDeux"), ("one", "DocTrois")] //TODO validation for same key names in map declaration
 	Map m1 = [("one", "DocUno"), ("two", "DocDeux"), ("three", "DocTrois")] 
 		var container = createContainer()
 	
@@ -41,12 +73,13 @@ gen mapTestKeys(){
 	return container
 }
 
+
 pattern createContainer(){
 	DocumentationContainer container
 } return this.container
 
 pattern addDocToContainer(DocumentationContainer container, String docName){
-	container {
+	container { 
 		documents -> doc
 	}
 	Document doc {

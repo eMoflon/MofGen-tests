@@ -16,7 +16,7 @@ import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
 import glossarDocumentation.Entry;
 
-public class ModelGenerationTest {
+public class GeneralTest {
 
 	@Test
 	public void testContainer() {

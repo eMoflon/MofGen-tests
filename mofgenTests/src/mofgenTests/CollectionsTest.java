@@ -2,7 +2,9 @@ package mofgenTests;
 
 import static org.junit.Assert.*;
 
+import TestModelsCollections.api.generators.ListAddTestGenerator;
 import TestModelsCollections.api.generators.ListTestGenerator;
+import TestModelsCollections.api.generators.MapPutTestGenerator;
 import TestModelsCollections.api.generators.MapTestEntriesGenerator;
 import TestModelsCollections.api.generators.MapTestKeysGenerator;
 
@@ -51,8 +53,33 @@ public class CollectionsTest {
 			assertTrue(docs.get(i).getName().equals(names[i]));
 		}
 	}
+	
+	@Test
+	public void testListAdd() {
+		String[] names = { "Ich", "bin", "Teil", "eines", "vollständigen", "und", "fehlerfreien", "Satzes."};
+		DocumentationContainer container = (DocumentationContainer) (new ListAddTestGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 8);
+		for (int i = 0; i < docs.size(); i++) {
+			assertTrue(docs.get(i).getName().equals(names[i]));
+		}
+	}
+	
+	@Test
+	public void testMapPut() {
+		String[] names = { "Ich", "bin", "Teil", "eines", "Satzes"};
+		DocumentationContainer container = (DocumentationContainer) (new MapPutTestGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 10);
+		for (int i = 0; i < 5; i++) {
+			assertTrue(docs.get(i).getName().equals(names[i]));
+		}
+		for(int j = 5; j < docs.size(); j++) {
+			assertTrue(docs.get(j).getName().equals(String.valueOf(j-4)));
+		}
+	}
 
-	// TODO tests for collection manipulations
+	// TODO tests for collection methods
 
 	// TODO new test case collection for control flow
 }

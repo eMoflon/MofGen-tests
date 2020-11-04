@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bundle-SymbolicName: TestModels;singleton:=true
+Bundle-SymbolicName: TestModelsGeneral;singleton:=true
 Bundle-Name: TestModels
 Bundle-Version: 0.0.1
 Require-Bundle: org.eclipse.emf.ecore,

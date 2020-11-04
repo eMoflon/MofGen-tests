@@ -70,7 +70,7 @@ pattern addDocToContainerWithEntries(DocumentationContainer container, String do
 	container { 
 		documents->doc      
 	} 
-	Document doc = createDocWithEntries(docName, i, "ChildOf_" + docName) 
+	Document doc = createDocWithEntries(docName, i, "ChildOf_" + docName)  
 } return this.doc
 
 pattern createDocWithEntries(String docName, int entryNumber, String entryName){ 
