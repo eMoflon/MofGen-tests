@@ -16,7 +16,7 @@ gen listTest(){
 } 
 
 gen listAddTest(){
-	List l1 of String 
+	List l1 of String
 	l1.add("Ich")
 	l1.add("bin")
 	List l2 = ["Teil", "eines", "vollständigen", "und", "fehlerfreien"]
@@ -38,14 +38,15 @@ gen mapPutTest(){
 	m1.put(3, "Teil")
 	m1.put(4, "eines") 
 	m1.put(5, "Satzes")   
-	m1.put(1, "Ich") 
+	m1.put(1, "Ich")  
 	 
 	var container = createContainer()
-	for m1-entries->name { 
+	for m1-entries->name {   
 		addDocToContainer(container, name)  
 	}
-	for m1-keys->name {
-		addDocToContainer(container, name)     
+	
+	for m1-keys->name { 
+		addDocToContainer(container, name)      
 	}
 	  
 	return container
@@ -56,7 +57,7 @@ gen mapTestEntries(){
 		var container = createContainer()
 	
 	for m1-entries->name {
-		addDocToContainer(container, name)        
+		addDocToContainer(container, name)         
 	}
 	
 	return container  
