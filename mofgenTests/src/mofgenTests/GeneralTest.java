@@ -12,6 +12,7 @@ import TestModels.api.generators.TestForLoopGenerator;
 import TestModels.api.generators.TestOrderingGenerator;
 import TestModels.api.generators.TestPattern1Generator;
 import TestModels.api.generators.TestSettingEnumGenerator;
+import TestModelsGeneral.api.generators.TestPatternCallReturnGenerator;
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
 import glossarDocumentation.Entry;
@@ -72,6 +73,15 @@ public class GeneralTest {
 		assertTrue(eObj instanceof Entry);
 		Entry e = (Entry) eObj;
 		assertTrue(e.getType() == glossarDocumentation.EntryType.METHOD);
+	}
+	
+	@Test 
+	public void testPatternCallReturn() {
+		EObject eObj = (new TestPatternCallReturnGenerator()).start();
+		assertTrue(eObj instanceof DocumentationContainer);
+		DocumentationContainer container = (DocumentationContainer) eObj;
+		assertTrue(container.getDocuments().isEmpty());
+		assertTrue(container.getGlossar() == null);
 	}
 
 }

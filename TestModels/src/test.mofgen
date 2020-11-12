@@ -10,20 +10,20 @@ gen testForLoop(){
 	
 	for i in 0:9 {   
 		addDocToContainer(container, docName + i)
-	}     
-	  
-	return container  
+	}          
+	   
+	return container    
 }  
 
 gen testPattern1(){
 	var container = containerCreation()
-	var docName = "IchBinDoc" 
+	var docName = "IchBinDoc"  
 	  
 	for i in 0:10 {
 		addDocToContainerWithEntries(container, docName, i)
 	}
 	  
-	return container 
+	return container   
 }
  
 gen testOrdering(){
@@ -36,6 +36,33 @@ gen testSettingEnum(){
 	var entry = entryWithEnum()
 	return entry
 }
+ 
+gen testPatternCallReturn(){
+	return containerCreation()
+}
+
+// TODO:
+gen testPatternWithinPattern(){
+	var container = containerCreation()
+	
+	
+	
+	return container
+}
+
+pattern containerWithDocuments(int docNumber){
+	DocumentationContainer container {
+		for i in 1:docNumber {
+			documents -> createDocument("doc"+docNumber)
+		}
+	}
+}
+
+pattern createDocument(String name){
+	Document doc {
+		name = name
+	}
+} return this.doc
 
 pattern entryWithEnum(){
 	Entry e {

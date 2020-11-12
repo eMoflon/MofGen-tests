@@ -10,4 +10,5 @@ Bundle-ManifestVersion: 2
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: TestModels.api,
- TestModels.api.generators
+ TestModels.api.generators,
+ TestModelsGeneral.api.generators
