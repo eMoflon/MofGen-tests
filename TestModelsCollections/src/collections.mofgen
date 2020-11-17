@@ -19,8 +19,8 @@ gen listAddTest(){
 	List l1 of String
 	l1.add("Ich")
 	l1.add("bin")
-	List l2 = ["Teil", "eines", "vollständigen", "und", "fehlerfreien"]
-	l1.addAll(l2)   
+	List l2 = ["Teil", "eines", "vollständigen", "und", "fehlerfreien"] 
+	l1.addAll(l2)    
 	l1.add("Satzes.") 
 	 
 	var container = createContainer()
