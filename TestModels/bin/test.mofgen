@@ -41,12 +41,8 @@ gen testPatternCallReturn(){
 	return containerCreation()
 }
 
-// TODO:
 gen testPatternWithinPattern(){
-	var container = containerCreation()
-	
-	
-	
+	var container = containerWithDocuments(10)
 	return container
 }
 
@@ -56,7 +52,7 @@ pattern containerWithDocuments(int docNumber){
 			documents -> createDocument("doc"+docNumber)
 		}
 	}
-}
+} return this.container
 
 pattern createDocument(String name){
 	Document doc {

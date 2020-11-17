@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import TestModelsControlFlow.api.generators.ForRangeTestGenerator;
 import TestModelsControlFlow.api.generators.IfElseSwitchTest1Generator;
+import TestModelsControlFlow.api.generators.IfElseSwitchTest2Generator;
 
 import java.util.List;
 
@@ -37,6 +38,23 @@ public class ControlFlowTest {
 				assertTrue(docs.get(i).getName().equals("doc"+i2));
 			}else {
 				assertTrue(docs.get(i).getName().equals("docNull"));
+			}
+		}
+	}
+	
+	@Test
+	public void ifElseSwitchTest2() {
+		DocumentationContainer container = (DocumentationContainer) (new IfElseSwitchTest2Generator()).start();
+		String[] docNames = {"a", "b", "c", "d", "e"};
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 10);
+		for (int i = 0; i < 10; i++) {
+			if(i % 2 == 0) {
+				assertTrue(docs.get(i).getName().equals(docNames[i/2]));
+			}else if(i % 2 != 0) {
+				assertTrue(docs.get(i).getName().equals(String.valueOf(i)));
+			}else {
+				throw new AssertionError();
 			}
 		}
 	}

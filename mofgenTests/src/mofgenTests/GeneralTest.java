@@ -13,6 +13,7 @@ import TestModels.api.generators.TestOrderingGenerator;
 import TestModels.api.generators.TestPattern1Generator;
 import TestModels.api.generators.TestSettingEnumGenerator;
 import TestModelsGeneral.api.generators.TestPatternCallReturnGenerator;
+import TestModelsGeneral.api.generators.TestPatternWithinPatternGenerator;
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
 import glossarDocumentation.Entry;
@@ -84,4 +85,11 @@ public class GeneralTest {
 		assertTrue(container.getGlossar() == null);
 	}
 
+	@Test 
+	public void testPatternWithinPattern() {
+		EObject eObj = (new TestPatternWithinPatternGenerator()).start();
+		assertTrue(eObj instanceof DocumentationContainer);
+		DocumentationContainer container = (DocumentationContainer) eObj;
+		assertTrue(container.getDocuments().size() == 10);
+	}
 }
