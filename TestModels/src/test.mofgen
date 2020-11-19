@@ -36,7 +36,7 @@ gen testSettingEnum(){
 	var entry = entryWithEnum()
 	return entry
 }
- 
+  
 gen testPatternCallReturn(){
 	return containerCreation()
 }
@@ -46,6 +46,51 @@ gen testPatternWithinPattern(){
 	return container
 }
 
+gen testVariableManipulation(){
+	var container = containerCreation()
+	
+	var testNumber = 0 
+	var testString = "test"
+	addDocToContainer(container, testString + testNumber)  
+	
+	testNumber = (testNumber + 2) * 5 
+	testString = testString + "itest"
+	addDocToContainer(container, testString + testNumber) 
+	
+	return container
+}
+
+gen testPatternObjectAccess(){ 
+	var patternObject = createDocumentAsPatternObject("docName") 	 
+	return patternObject.doc         
+}
+
+gen testPatternObjectAsParameter(){
+	var docPattern  = createDocumentAsPatternObject("docName") 	
+	return createContainerWithDocument(docPattern)
+}
+
+gen testPatternObjectMultipleRefCalls(){   
+	var docPattern  = createDocumentAsPatternObject("docName") 	
+	return createDocument(docPattern.doc.name) 
+}
+
+// TODO direct access of pattern fields after pattern call?
+
+// TODO error in validator when roc is not spelled completely. e.g. "docPattern.do" instead of "docPattern.doc"
+
+pattern createContainerWithDocument(createDocumentAsPatternObject docPattern){
+	DocumentationContainer container {
+		documents -> docPattern.doc
+	}
+} return this.container
+
+pattern createDocumentAsPatternObject(String name){
+	Document doc {
+		name = name // TODO "this.name"?
+	} 
+} return this
+ 
 pattern containerWithDocuments(int docNumber){
 	DocumentationContainer container {
 		for i in 1:docNumber {
@@ -58,7 +103,7 @@ pattern createDocument(String name){
 	Document doc {
 		name = name
 	}
-} return this.doc
+} return this.doc //TODO also make "return doc" only available if there are no conflicts
 
 pattern entryWithEnum(){
 	Entry e {

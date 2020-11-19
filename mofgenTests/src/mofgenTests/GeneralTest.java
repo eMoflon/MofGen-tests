@@ -13,7 +13,11 @@ import TestModels.api.generators.TestOrderingGenerator;
 import TestModels.api.generators.TestPattern1Generator;
 import TestModels.api.generators.TestSettingEnumGenerator;
 import TestModelsGeneral.api.generators.TestPatternCallReturnGenerator;
+import TestModelsGeneral.api.generators.TestPatternObjectAccessGenerator;
+import TestModelsGeneral.api.generators.TestPatternObjectAsParameterGenerator;
+import TestModelsGeneral.api.generators.TestPatternObjectMultipleRefCallsGenerator;
 import TestModelsGeneral.api.generators.TestPatternWithinPatternGenerator;
+import TestModelsGeneral.api.generators.TestVariableManipulationGenerator;
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
 import glossarDocumentation.Entry;
@@ -91,5 +95,35 @@ public class GeneralTest {
 		assertTrue(eObj instanceof DocumentationContainer);
 		DocumentationContainer container = (DocumentationContainer) eObj;
 		assertTrue(container.getDocuments().size() == 10);
+	}
+	
+	@Test
+	public void testVariableManipulation() {
+		DocumentationContainer container = (DocumentationContainer) (new TestVariableManipulationGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 2);
+		Document doc1 = docs.get(0);
+		assertTrue(doc1.getName().equals("test0"));
+		Document doc2 = docs.get(1);
+		assertTrue(doc2.getName().equals("testitest10"));
+	}
+	
+	@Test
+	public void testPatternObjectAccess() {
+		Document doc = (Document) (new TestPatternObjectAccessGenerator()).start();
+		assertTrue(doc.getName().equals("docName"));
+	}
+	
+	@Test
+	public void testPatternObjectAsParameter() {
+		DocumentationContainer container = (DocumentationContainer) (new TestPatternObjectAsParameterGenerator()).start();
+		Document doc = container.getDocuments().get(0);
+		assertTrue(doc.getName().equals("docName"));
+	}
+	
+	@Test
+	public void testPatternObjectMultipleRefCalls() {
+		Document doc = (Document) (new TestPatternObjectMultipleRefCallsGenerator()).start();
+		assertTrue(doc.getName().equals("docName"));
 	}
 }

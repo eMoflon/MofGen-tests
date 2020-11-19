@@ -2,6 +2,7 @@ package mofgenTests;
 
 import static org.junit.Assert.*;
 
+import TestModelsControlFlow.api.generators.CastTestGenerator;
 import TestModelsControlFlow.api.generators.ForRangeTestGenerator;
 import TestModelsControlFlow.api.generators.IfElseSwitchTest1Generator;
 import TestModelsControlFlow.api.generators.IfElseSwitchTest2Generator;
@@ -12,6 +13,7 @@ import org.junit.Test;
 
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
+import glossarDocumentation.Entry;
 
 public class ControlFlowTest {
 
@@ -56,6 +58,25 @@ public class ControlFlowTest {
 			}else {
 				throw new AssertionError();
 			}
+		}
+	}
+	
+	@Test
+	public void castTest() {
+		DocumentationContainer container = (DocumentationContainer) (new CastTestGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		String docPrefix = "doc";
+		String entryPrefix = "entry";
+		assertTrue(docs.size() == 5);
+		int i = 0;
+		for(Document doc : docs) {
+			assertTrue(doc.getName().equals(docPrefix + i));
+			List<Entry> entries = doc.getEntries();
+			assertTrue(entries.size() == 1);
+			i++;
+			Entry e = entries.get(0);
+			assertTrue(e.getName().equals(entryPrefix+i));
+			i++;
 		}
 	}
 }

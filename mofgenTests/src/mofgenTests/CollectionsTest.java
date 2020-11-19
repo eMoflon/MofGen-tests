@@ -3,8 +3,10 @@ package mofgenTests;
 import static org.junit.Assert.*;
 
 import TestModelsCollections.api.generators.ListAddTestGenerator;
+import TestModelsCollections.api.generators.ListSizeTestGenerator;
 import TestModelsCollections.api.generators.ListTestGenerator;
 import TestModelsCollections.api.generators.MapPutTestGenerator;
+import TestModelsCollections.api.generators.MapSizeTestGenerator;
 import TestModelsCollections.api.generators.MapTestEntriesGenerator;
 import TestModelsCollections.api.generators.MapTestKeysGenerator;
 
@@ -77,6 +79,22 @@ public class CollectionsTest {
 		for(int j = 5; j < docs.size(); j++) {
 			assertTrue(docs.get(j).getName().equals(String.valueOf(j-4)));
 		}
+	}
+	
+	@Test
+	public void testListSize() {
+		int correctSize = 8;
+		DocumentationContainer container = (DocumentationContainer) (new ListSizeTestGenerator()).start();
+		Document doc = container.getDocuments().get(0);
+		assertTrue(doc.getName().equals("doc"+correctSize));
+	}
+	
+	@Test
+	public void testMapSize() {
+		int correctSize = 5;
+		DocumentationContainer container = (DocumentationContainer) (new MapSizeTestGenerator()).start();
+		Document doc = container.getDocuments().get(0);
+		assertTrue(doc.getName().equals("doc"+correctSize));
 	}
 
 	// TODO tests for collection methods
