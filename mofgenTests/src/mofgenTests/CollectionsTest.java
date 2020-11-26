@@ -1,24 +1,22 @@
 package mofgenTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.junit.Test;
 
 import TestModelsCollections.api.generators.ListAddTestGenerator;
 import TestModelsCollections.api.generators.ListSizeTestGenerator;
 import TestModelsCollections.api.generators.ListTestGenerator;
+import TestModelsCollections.api.generators.ListTestObjectsGenerator;
 import TestModelsCollections.api.generators.MapPutTestGenerator;
 import TestModelsCollections.api.generators.MapSizeTestGenerator;
 import TestModelsCollections.api.generators.MapTestEntriesGenerator;
 import TestModelsCollections.api.generators.MapTestKeysGenerator;
-
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
-import org.junit.Before;
-import org.junit.Test;
-
+import TestModelsCollections.api.generators.MapTestObjectsGenerator;
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
-import glossarDocumentation.Entry;
 
 public class CollectionsTest {
 
@@ -96,8 +94,28 @@ public class CollectionsTest {
 		Document doc = container.getDocuments().get(0);
 		assertTrue(doc.getName().equals("doc"+correctSize));
 	}
+	
+	@Test
+	public void testListObjects() {
+		DocumentationContainer container = (DocumentationContainer) (new ListTestObjectsGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 5);
+		for(int i = 0; i < 10; i++) {
+			if(i % 2 == 0) {
+				docs.get(i/2).getName().equals("doc"+i);
+			}
+		}
+	}
+	
+	@Test
+	public void testMapObjects() {
+		DocumentationContainer container = (DocumentationContainer) (new MapTestObjectsGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 9);
+		for(int i = 0; i < 9; i++) {
+			docs.get(i).getName().equals("doc"+ 7 * (i + 1));
+		}
+	}
 
 	// TODO tests for collection methods
-
-	// TODO new test case collection for control flow
 }

@@ -91,6 +91,45 @@ gen mapTestKeys(){
 	return container
 }
 
+gen listTestObjects(){
+	var container = createContainer()
+	List l1 of Document
+	
+	for i in 0:9 {
+		l1.add(createDoc("doc"+1))
+	}
+	
+	for i in 0:9 {
+		switch{
+			when i % 2 == 0: addDocObjectToContainer(container, l1.get(i))
+		}
+	}
+	
+	return container
+}
+
+gen mapTestObjects(){
+	var container = createContainer()
+	
+	Map m1 of (Document, Document)
+	List docList of Document
+	
+	var doc = createDoc("doc"+0)
+	var nextDoc = createDoc("")
+	for i in 1:9 {
+		nextDoc = doc
+		doc = createDoc("doc"+ 7 * i)
+		docList.add(doc)
+		m1.put(doc, nextDoc)
+	}
+	
+	for docIt in docList {
+		addDocObjectToContainer(container, m1.get(docIt))
+	}
+	
+	return container
+}
+
 
 pattern createContainer(){
 	DocumentationContainer container
@@ -104,3 +143,15 @@ pattern addDocToContainer(DocumentationContainer container, String docName){
 		name = docName
 	}
 }
+
+pattern addDocObjectToContainer(DocumentationContainer container, Document doc){
+	container {
+		documents -> doc
+	}
+}
+
+pattern createDoc(String docName){
+	Document doc{
+		name = docName
+	}
+}return this.doc
