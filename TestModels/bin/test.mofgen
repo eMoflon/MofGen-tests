@@ -10,25 +10,25 @@ gen testForLoop(){
 	
 	for i in 0:9 {   
 		addDocToContainer(container, docName + i)
-	}          
+	}           
 	   
 	return container    
-}  
-
+}    
+    
 gen testPattern1(){
 	var container = containerCreation()
 	var docName = "IchBinDoc"  
-	  
+	       
 	for i in 0:10 {
 		addDocToContainerWithEntries(container, docName, i)
-	}
-	  
+	}  
+	     
 	return container   
 }
  
 gen testOrdering(){
 	var container = containerCreation()
-	ordering(container)
+	ordering(container) 
 	return container
 } 
 
@@ -49,35 +49,31 @@ gen testPatternWithinPattern(){
 gen testVariableManipulation(){
 	var container = containerCreation()
 	
-	var testNumber = 0 
-	var testString = "test"
+	var testNumber = 0 // TODO EValidator errors when changing to e.g. container
+	var testString = "test"    
 	addDocToContainer(container, testString + testNumber)  
-	
+	 
 	testNumber = (testNumber + 2) * 5 
 	testString = testString + "itest"
 	addDocToContainer(container, testString + testNumber) 
 	
-	return container
+	return container  
 }
 
 gen testPatternObjectAccess(){ 
 	var patternObject = createDocumentAsPatternObject("docName") 	 
 	return patternObject.doc         
-}
+} 
 
 gen testPatternObjectAsParameter(){
 	var docPattern  = createDocumentAsPatternObject("docName") 	
 	return createContainerWithDocument(docPattern)
 }
-
+ 
 gen testPatternObjectMultipleRefCalls(){   
 	var docPattern  = createDocumentAsPatternObject("docName") 	
 	return createDocument(docPattern.doc.name) 
 }
-
-// TODO direct access of pattern fields after pattern call?
-
-// TODO error in validator when roc is not spelled completely. e.g. "docPattern.do" instead of "docPattern.doc"
 
 pattern createContainerWithDocument(createDocumentAsPatternObject docPattern){
 	DocumentationContainer container {
@@ -87,7 +83,7 @@ pattern createContainerWithDocument(createDocumentAsPatternObject docPattern){
 
 pattern createDocumentAsPatternObject(String name){
 	Document doc {
-		name = name // TODO "this.name"?
+		name = name
 	} 
 } return this
  
@@ -101,9 +97,41 @@ pattern containerWithDocuments(int docNumber){
 
 pattern createDocument(String name){
 	Document doc {
+		name = name    
+	} 
+} return this.doc
+
+gen testThis1(){
+	var doc = createDocument("IDoNotWantToBeHere")
+	return testThisDoc1(doc, "IAmGladToBeHere")
+}
+
+pattern testThisDoc1(Document doc, String name){
+	Document doc {
 		name = name
 	}
-} return this.doc //TODO also make "return doc" only available if there are no conflicts
+} return this.doc
+
+gen testThis2(){  
+	var doc = createDocument("IAmGladToBeHere")
+	return testThisDoc2(doc, "IDoNotWantToBeHere")
+} 
+
+pattern testThisDoc2(Document doc, String name){
+	Document doc {
+		name = name
+	}
+} return doc
+ //TODO test 'this' operator
+
+pattern createDocNameFromDoc(Document doc){
+	Document doc {
+		name = doc.name    
+	}
+	Document doc2 {
+		name = this.doc.name  
+	}
+} return this.doc // TODO test 
 
 pattern entryWithEnum(){
 	Entry e {

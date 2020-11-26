@@ -120,7 +120,7 @@ gen mapTestObjects(){
 		nextDoc = doc
 		doc = createDoc("doc"+ 7 * i)
 		docList.add(doc)
-		m1.put(doc, nextDoc)
+		m1.put(doc, nextDoc)   
 	}
 	
 	for docIt in docList {
@@ -154,4 +154,4 @@ pattern createDoc(String docName){
 	Document doc{
 		name = docName
 	}
-}return this.doc
+}return doc

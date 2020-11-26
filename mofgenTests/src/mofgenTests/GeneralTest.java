@@ -17,6 +17,9 @@ import TestModelsGeneral.api.generators.TestPatternObjectAccessGenerator;
 import TestModelsGeneral.api.generators.TestPatternObjectAsParameterGenerator;
 import TestModelsGeneral.api.generators.TestPatternObjectMultipleRefCallsGenerator;
 import TestModelsGeneral.api.generators.TestPatternWithinPatternGenerator;
+import TestModelsGeneral.api.generators.TestThis1Generator;
+import TestModelsGeneral.api.generators.TestThis2Generator;
+import TestModelsGeneral.api.generators.TestThisGenerator;
 import TestModelsGeneral.api.generators.TestVariableManipulationGenerator;
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
@@ -125,5 +128,18 @@ public class GeneralTest {
 	public void testPatternObjectMultipleRefCalls() {
 		Document doc = (Document) (new TestPatternObjectMultipleRefCallsGenerator()).start();
 		assertTrue(doc.getName().equals("docName"));
+	}
+	
+	@Test
+	public void testThis1() {
+		TestThis1Generator gen = new TestThis1Generator();
+		Document doc = (Document) gen.start();
+		assertTrue(doc.getName().equals("IAmGladToBeHere"));
+	}
+	
+	@Test
+	public void testThis2() {
+		Document doc = (Document) (new TestThis2Generator()).start();
+		assertTrue(doc.getName().equals("IAmGladToBeHere"));
 	}
 }
