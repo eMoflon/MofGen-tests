@@ -2,10 +2,7 @@ package mofgenTests;
 
 import static org.junit.Assert.*;
 
-import TestModelsControlFlow.api.generators.CastTestGenerator;
-import TestModelsControlFlow.api.generators.ForRangeTestGenerator;
-import TestModelsControlFlow.api.generators.IfElseSwitchTest1Generator;
-import TestModelsControlFlow.api.generators.IfElseSwitchTest2Generator;
+import TestModels.api.generators.controlFlow.*;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
 package bin;
 
-import TestModels.api.TestModelsApp;
+import TestModelsGeneral.api.TestModelsGeneralApp;
 
 public class Main {
 
 	public static void main(String[] args) {
-		TestModelsApp app = new TestModelsApp();
+		TestModelsGeneralApp app = new TestModelsGeneralApp();
 		app.startGeneration();
 	}
 

@@ -6,15 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import TestModelsCollections.api.generators.ListAddTestGenerator;
-import TestModelsCollections.api.generators.ListSizeTestGenerator;
-import TestModelsCollections.api.generators.ListTestGenerator;
-import TestModelsCollections.api.generators.ListTestObjectsGenerator;
-import TestModelsCollections.api.generators.MapPutTestGenerator;
-import TestModelsCollections.api.generators.MapSizeTestGenerator;
-import TestModelsCollections.api.generators.MapTestEntriesGenerator;
-import TestModelsCollections.api.generators.MapTestKeysGenerator;
-import TestModelsCollections.api.generators.MapTestObjectsGenerator;
+import TestModels.api.generators.collections.*;
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
 

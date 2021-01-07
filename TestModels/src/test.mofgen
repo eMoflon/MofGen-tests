@@ -10,7 +10,7 @@ gen testForLoop(){
 	
 	for i in 0:9 {   
 		addDocToContainer(container, docName + i)
-	}           
+	}               
 	   
 	return container    
 }    
@@ -110,13 +110,13 @@ pattern testThisDoc1(Document doc, String name){
 	Document doc {
 		name = name
 	}
-} return this.doc
-
+} return this.doc  
+ 
 gen testThis2(){  
 	var doc = createDocument("IAmGladToBeHere")
 	return testThisDoc2(doc, "IDoNotWantToBeHere")
 } 
-
+ 
 pattern testThisDoc2(Document doc, String name){
 	Document doc {
 		name = name
