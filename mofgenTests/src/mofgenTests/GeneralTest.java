@@ -130,4 +130,28 @@ public class GeneralTest {
 		Document doc = (Document) (new TestThis2Generator()).start();
 		assertTrue(doc.getName().equals("IAmGladToBeHere"));
 	}
+	
+	@Test
+	public void testCreateDocNameFromDoc() {
+		Document doc = (Document) (new TestCreateDocNameFromDocGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void testReturnParameter() {
+		Document doc = (Document) (new TestReturnParameterGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void testReturnNodeAttribute() {
+		Document doc = (Document) (new TestReturnNodeAttributeGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void testReturnParameterAttribute() {
+		Document doc = (Document) (new TestReturnParameterAttributeGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
 }
