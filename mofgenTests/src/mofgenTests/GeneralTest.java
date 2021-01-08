@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.junit.Before;
 import org.junit.Test;
 
 import TestModels.api.generators.general.*;
@@ -152,6 +151,18 @@ public class GeneralTest {
 	@Test
 	public void testReturnParameterAttribute() {
 		Document doc = (Document) (new TestReturnParameterAttributeGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void testNoneParameter() {
+		Document doc = (Document) (new TestNoneParameterGenerator()).start();
+		assertTrue(doc.getName() == null);
+	}
+	
+	@Test
+	public void testNoneVariable() {
+		Document doc = (Document) (new TestNoneVariableGenerator()).start();
 		assertTrue(doc.getName().equals("dolittle"));
 	}
 }

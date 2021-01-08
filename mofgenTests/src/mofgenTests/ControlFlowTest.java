@@ -59,6 +59,18 @@ public class ControlFlowTest {
 	}
 	
 	@Test
+	public void ifElseSwitchTestNone1() {
+		Document doc = (Document) (new IfElseSwitchTestNone1Generator()).start();
+		assertTrue(doc.getName().equals("NameWasNone"));
+	}
+	
+	@Test
+	public void ifElseSwitchTestNone2() {
+		Document doc = (Document) (new IfElseSwitchTestNone2Generator()).start();
+		assertTrue(doc.getName().equals("NameWasGiven"));
+	}
+	
+	@Test
 	public void castTest() {
 		DocumentationContainer container = (DocumentationContainer) (new CastTestGenerator()).start();
 		List<Document> docs = container.getDocuments();
