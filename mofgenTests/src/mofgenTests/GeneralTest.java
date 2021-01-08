@@ -165,4 +165,18 @@ public class GeneralTest {
 		Document doc = (Document) (new TestNoneVariableGenerator()).start();
 		assertTrue(doc.getName().equals("dolittle"));
 	}
+	
+	@Test
+	public void testNoneFromPattern1() {
+		DocumentationContainer container = (DocumentationContainer) (new TestNoneFromPattern1Generator()).start();
+		Document doc = container.getDocuments().get(0);
+		assertTrue(doc.getName().equals("ThereWasNoGlossar"));
+	}
+	
+	@Test
+	public void testNoneFromPattern2() {
+		DocumentationContainer container = (DocumentationContainer) (new TestNoneFromPattern2Generator()).start();
+		Document doc = container.getDocuments().get(0);
+		assertTrue(doc.getName().equals("IAmSeeingGhosts"));
+	}
 }

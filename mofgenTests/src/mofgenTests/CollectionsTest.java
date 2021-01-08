@@ -108,6 +108,22 @@ public class CollectionsTest {
 			docs.get(i).getName().equals("doc"+ 7 * (i + 1));
 		}
 	}
+	
+	@Test
+	public void nullOnListTest1() {
+		DocumentationContainer container = (DocumentationContainer) (new NullOnListTest1Generator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 1);
+		assertTrue(docs.get(0).getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void nullOnListTest2() {
+		DocumentationContainer container = (DocumentationContainer) (new NullOnListTest2Generator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 1);
+		assertTrue(docs.get(0).getName().equals("dolittle"));
+	}
 
 	// TODO tests for collection methods
 }
