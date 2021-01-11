@@ -13,6 +13,7 @@ import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
 import glossarDocumentation.Entry;
 import simpleInheritanceModel.A;
+import simpleInheritanceModel.B;
 
 public class ControlFlowTest {
 
@@ -128,9 +129,41 @@ public class ControlFlowTest {
 	}
 	
 	@Test
+	public void nestedSwitchPatternTest() {
+		Document doc = (Document) (new NestedSwitchPatternTestGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void polymorphicSwitchPatternTest() {
+		DocumentationContainer container = (DocumentationContainer) (new PolymorphicSwitchPatternTestGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 2);
+		assertTrue(docs.get(0).getName().equals("b"));
+		assertTrue(docs.get(1).getName().equals("c"));
+	}
+	
+	
+	@Test
 	public void polymorphicTest1() {
 		EObject result = (new PolymorphicTest1Generator()).start();
 		assertTrue(result != null && result instanceof A);
+	}
+	
+	@Test
+	public void earlyReturnInSwitchTest1() {
+		EObject res = (new EarlyReturnInSwitchTest1Generator()).start();
+		assertTrue(res instanceof B);
+	}
+	
+	@Test
+	public void earlyReturnInSwitchTest2() {
+		DocumentationContainer container = (DocumentationContainer) (new EarlyReturnInSwitchTest2Generator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 5);
+		for(int i = 0; i < docs.size(); i++) {
+			assertTrue(Integer.valueOf(docs.get(i).getName()) == (i+1));
+		}
 	}
 
 }

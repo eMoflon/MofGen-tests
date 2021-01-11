@@ -179,4 +179,10 @@ public class GeneralTest {
 		Document doc = container.getDocuments().get(0);
 		assertTrue(doc.getName().equals("IAmSeeingGhosts"));
 	}
+	
+	@Test
+	public void testPatternParameterObjectFieldAccess() {
+		Document doc = (Document) (new TestPatternParameterObjectFieldAccessGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
 }
