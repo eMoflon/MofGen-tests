@@ -14,6 +14,7 @@ import glossarDocumentation.DocumentationContainer;
 import glossarDocumentation.Entry;
 import simpleInheritanceModel.A;
 import simpleInheritanceModel.B;
+import simpleInheritanceModel.C;
 
 public class ControlFlowTest {
 
@@ -165,5 +166,22 @@ public class ControlFlowTest {
 			assertTrue(Integer.valueOf(docs.get(i).getName()) == (i+1));
 		}
 	}
+	
+	@Test
+	public void enumSwitchTest() {
+		EObject result = (new EnumSwitchTestGenerator()).start();
+		assertTrue(result != null && result instanceof C);
+	}
+	
+	@Test
+	public void switchWithCastVarUsedInWhenTest() {
+		EObject result = (new SwitchWithCastVarUsedInWhenTestGenerator()).start();
+		assertTrue(result != null && result instanceof B);
+	}
 
+	@Test
+	public void switchWithCastVarUsedInWhenTest2() {
+		Document doc = (Document) (new SwitchWithCastVarUsedInWhenTest2Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
 }
