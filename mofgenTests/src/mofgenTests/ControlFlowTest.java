@@ -6,11 +6,13 @@ import TestModels.api.generators.controlFlow.*;
 
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.junit.Test;
 
 import glossarDocumentation.Document;
 import glossarDocumentation.DocumentationContainer;
 import glossarDocumentation.Entry;
+import simpleInheritanceModel.A;
 
 public class ControlFlowTest {
 
@@ -110,6 +112,25 @@ public class ControlFlowTest {
 				assertTrue(entries.get(2).getName().equals("IAmNew2"));
 			}
 		}
+	}
+	
+	@Test
+	public void nestedForTest() {
+		DocumentationContainer container = (DocumentationContainer) (new NestedForTestGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 36);
+		for (int i = 0; i < 36; i++) {
+			int j1 = Math.floorDiv(i, 6)+1;
+			int j2 = i % 6 + 1;
+			Document doc = docs.get(i);
+			assertTrue(Integer.valueOf(doc.getName()) == j1*j2);
+		}
+	}
+	
+	@Test
+	public void polymorphicTest1() {
+		EObject result = (new PolymorphicTest1Generator()).start();
+		assertTrue(result != null && result instanceof A);
 	}
 
 }
