@@ -80,8 +80,50 @@ public class ArithmeticsTest {
 	}
 	
 	@Test
-	public void arithmeticsBoolean7Test() {
-		BooleanResult res = (BooleanResult) (new ArithmeticsBoolean7Generator().start());
+	public void equals1Test() {
+		BooleanResult res = (BooleanResult) (new Equals1Generator().start());
+		assertTrue(res.isResult());
+	}
+	
+	@Test
+	public void equals2Test() {
+		BooleanResult res = (BooleanResult) (new Equals2Generator().start());
+		assertTrue(!res.isResult());
+	}
+	
+	@Test
+	public void equalsIdentity1Test() {
+		BooleanResult res = (BooleanResult) (new EqualsIdentity1Generator().start());
+		assertTrue(res.isResult());
+	}
+	
+	@Test
+	public void equalsIdentity2Test() {
+		BooleanResult res = (BooleanResult) (new EqualsIdentity2Generator().start());
+		assertTrue(!res.isResult());
+	}
+	
+	@Test
+	public void equalsString1Test() {
+		BooleanResult res = (BooleanResult) (new EqualsString1Generator().start());
+		assertTrue(!res.isResult());
+	}
+	
+	@Test
+	public void equalsString2Test() {
+		BooleanResult res = (BooleanResult) (new EqualsString2Generator().start());
+		assertTrue(res.isResult());
+	}
+	
+	@Test
+	public void equalsIdentityString1Test() {
+		BooleanResult res = (BooleanResult) (new EqualsIdentityString1Generator().start());
+		assertTrue(res.isResult());
+	}
+	
+	@Test
+	public void equalsIdentityString2Test() {
+		BooleanResult res = (BooleanResult) (new EqualsIdentityString2Generator().start());
 		assertTrue(!res.isResult());
 	}
 }
