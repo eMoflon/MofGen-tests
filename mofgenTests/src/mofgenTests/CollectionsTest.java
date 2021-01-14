@@ -23,6 +23,73 @@ public class CollectionsTest {
 			assertTrue(docs.get(i).getName().equals(names[i]));
 		}
 	}
+	
+	@Test
+	public void listAddAllTest() {
+		String[] names = { "DocUno", "DocDeux", "DocTrois" };
+		DocumentationContainer container = (DocumentationContainer) (new ListAddAllTestGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 3);
+
+		for (int i = 0; i < docs.size(); i++) {
+			assertTrue(docs.get(i).getName().equals(names[i]));
+		}
+	}
+	
+	@Test
+	public void listRemoveTest1() {
+		String[] names = { "DocUno", "DocTrois" };
+		DocumentationContainer container = (DocumentationContainer) (new ListRemoveTest1Generator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 2);
+
+		for (int i = 0; i < docs.size(); i++) {
+			assertTrue(docs.get(i).getName().equals(names[i]));
+		}
+	}
+
+	
+	@Test
+	public void listRemoveTest2() {
+		String[] names = { "DocUno", "DocTrois" };
+		DocumentationContainer container = (DocumentationContainer) (new ListRemoveTest2Generator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 2);
+
+		for (int i = 0; i < docs.size(); i++) {
+			assertTrue(docs.get(i).getName().equals(names[i]));
+		}
+	}
+	
+	
+	@Test
+	public void listContainsTest() {
+		Document doc = (Document) (new ListContainsTestGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void listIndexOfTest() {
+		Document doc = (Document) (new ListIndexOfTestGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"+1));
+	}
+	
+	@Test
+	public void listEmptyTest1() {
+		Document doc = (Document) (new ListEmptyTest1Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	@Test
+	public void listEmptyTest2() {
+		Document doc = (Document) (new ListEmptyTest2Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	@Test
+	public void listEmptyTest3() {
+		Document doc = (Document) (new ListEmptyTest3Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+
 
 	@Test
 	public void testForEachMapEntries() {
@@ -123,6 +190,45 @@ public class CollectionsTest {
 		List<Document> docs = container.getDocuments();
 		assertTrue(docs.size() == 1);
 		assertTrue(docs.get(0).getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void mapContainsKeyTest() {
+		Document doc = (Document) (new MapContainsKeyTestGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void mapContainsValueTest() {
+		Document doc = (Document) (new MapContainsValueTestGenerator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void mapEmptyTest1() {
+		Document doc = (Document) (new MapEmptyTest1Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void mapEmptyTest2() {
+		Document doc = (Document) (new MapEmptyTest2Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void mapEmptyTest3() {
+		Document doc = (Document) (new MapEmptyTest3Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void mapRemoveTest() {
+		DocumentationContainer container = (DocumentationContainer) (new MapRemoveTestGenerator()).start();
+		List<Document> docs = container.getDocuments();
+		assertTrue(docs.size() == 2);
+		assertTrue(docs.get(0).getName().equals("DocUno"));
+		assertTrue(docs.get(1).getName().equals("DocTrois"));
 	}
 
 	// TODO tests for collection methods

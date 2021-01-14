@@ -185,4 +185,16 @@ public class GeneralTest {
 		Document doc = (Document) (new TestPatternParameterObjectFieldAccessGenerator()).start();
 		assertTrue(doc.getName().equals("dolittle"));
 	}
+	
+	@Test
+	public void testEObjectAsParameter1() {
+		Document doc = (Document) (new TestEObjectAsParameter1Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
+	
+	@Test
+	public void testEObjectAsParameter2() {
+		Document doc = (Document) (new TestEObjectAsParameter2Generator()).start();
+		assertTrue(doc.getName().equals("dolittle"));
+	}
 }

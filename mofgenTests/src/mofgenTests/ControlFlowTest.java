@@ -184,4 +184,16 @@ public class ControlFlowTest {
 		Document doc = (Document) (new SwitchWithCastVarUsedInWhenTest2Generator()).start();
 		assertTrue(doc.getName().equals("dolittle"));
 	}
+	
+	@Test
+	public void switchCaseWithoutCast1() {
+		EObject result = (new SwitchCaseWithoutCast1Generator()).start();
+		assertTrue(result != null && result instanceof B);
+	}
+	
+	@Test
+	public void switchCaseWithoutCast2() {
+		EObject result = (new SwitchCaseWithoutCast2Generator()).start();
+		assertTrue(result != null && result instanceof B);
+	}
 }

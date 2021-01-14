@@ -17,7 +17,7 @@ public class ArithmeticsTest {
 	public void arithmetics1Test() {
 		NumberResult res = (NumberResult) (new Arithmetics1Generator().start());
 		assertTrue(res.getResult() == 10.0);
-	}
+	} 
 	
 	@Test
 	public void arithmetics2Test() {
