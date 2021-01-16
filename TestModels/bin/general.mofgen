@@ -1,0 +1,304 @@
+import "platform:/resource/GlossarDocumentation/model/glossarDocumentation.ecore" as testImport 
+
+config(){   
+}      
+  
+  // TODO allow generators to be called in other generators?     
+      
+gen testForLoop(){       
+	var container = createContainer()
+	var docName = "IchBinDoc" 
+	    
+	for i in 0:9 {   
+		addDocToContainer(container, docName + i)
+	}               
+	   
+	return container      
+}      
+     
+gen testPattern1(){
+	var container = createContainer()
+	var docName = "IchBinDoc"  
+	       
+	for i in 0:10 { 
+		addDocToContainerWithEntries(container, docName, i)
+	}    
+	        
+	return container    
+}  
+ 
+gen testOrdering(){
+	var container = createContainer()
+	ordering(container)  
+	return container
+}  
+   
+gen testSettingEnum(){
+	var entry = entryWithEnum()
+	return entry
+}
+  
+gen testPatternCallReturn(){
+	return createContainer()
+}
+
+gen testPatternWithinPattern(){
+	var container = containerWithDocuments(10)
+	return container
+}
+
+gen testVariableManipulation(){
+	var container = createContainer()
+	
+	var testNumber = 0  
+	var testString = "test"     
+	addDocToContainer(container, testString + testNumber)  
+	 
+	testNumber = (testNumber + 2) * 5 
+	testString = testString + "itest"
+	addDocToContainer(container, testString + testNumber) 
+	
+	return container    
+}
+
+gen testPatternObjectAccess(){ 
+	var patternObject = createDocumentAsPatternObject("docName") 	 
+	return patternObject.doc         
+} 
+
+gen testPatternObjectAsParameter(){
+	var docPattern  = createDocumentAsPatternObject("docName") 	
+	return createContainerWithDocument(docPattern)
+}
+ 
+gen testPatternObjectMultipleRefCalls(){   
+	var docPattern  = createDocumentAsPatternObject("docName") 	
+	return createDocument(docPattern.doc.name) 
+}
+
+gen testPatternParameterObjectFieldAccess(){
+	var doc = createDocument("dolittle")
+	return createDocumentWithSameName(doc)
+}
+
+pattern createDocumentWithSameName(Document d){
+	Document newD {
+		name = d.name
+	}
+} return this.newD
+
+pattern createContainerWithDocument(createDocumentAsPatternObject docPattern){
+	DocumentationContainer container {
+		documents -> docPattern.doc
+	}
+} return this.container
+
+pattern createDocumentAsPatternObject(String name){
+	Document doc {
+		name = name
+	} 
+} return this
+ 
+pattern containerWithDocuments(int docNumber){
+	DocumentationContainer container {
+		for i in 1:docNumber {
+			documents -> createDocument("doc"+docNumber)
+		}
+	}
+} return this.container
+
+pattern createDocument(String name){
+	Document doc {
+		name = name    
+	} 
+} return this.doc
+
+gen testThis1(){
+	var doc = createDocument("IDoNotWantToBeHere")
+	return testThisDoc1(doc, "IAmGladToBeHere")
+}
+
+pattern testThisDoc1(Document doc, String name){
+	Document doc {
+		name = name
+	}
+} return this.doc  
+ 
+gen testThis2(){  
+	var doc = createDocument("IAmGladToBeHere")
+	return testThisDoc2(doc, "IDoNotWantToBeHere")
+} 
+ 
+pattern testThisDoc2(Document doc, String name){
+	Document doc {
+		name = name
+	}
+} return doc
+ 
+gen testCreateDocNameFromDoc(){   
+
+	var doc1 = createDocument("dolittle")  
+	var doc2 = createDocNameFromDoc(doc1)   
+	return doc2 
+} 
+
+pattern createDocNameFromDoc(Document doc){
+	Document doc2 {
+		name = this.doc.name  
+	}
+	Document doc {
+		name = doc.name    
+	}
+} return this.doc2
+
+gen testReturnParameter(){
+	var doc = createDocument("dolittle")
+	return doc     
+} 
+
+pattern returnParameter(Document doc){
+	Document doc {  
+		name = "Wrong" 
+	}      
+} return doc     
+    
+ 
+gen testReturnNodeAttribute(){
+	var doc = createDocument("wrong")
+	var name =  returnNodeAttribute(doc) 
+	return createDocument(name) 
+}
+  
+pattern returnNodeAttribute(Document doc){
+	Document doc {
+		name = "dolittle" 
+	} 
+} return this.doc.name    
+
+gen testReturnParameterAttribute(){
+	var doc = createDocument("dolittle")
+	return createDocument(returnParameterAttribute(doc)) 
+}
+
+gen testNoneFromPattern1(){
+	var container = createContainer()
+	
+	switch {
+		when container.glossar == none: addDocToContainer(container, "ThereWasNoGlossar")
+		default:						addDocToContainer(container, "IAmSeeingGhosts")
+	}
+	
+	return container
+}
+
+gen testNoneFromPattern2(){
+	var container = createContainer()
+	
+	switch {
+		when container.glossar != none: addDocToContainer(container, "ThereWasNoGlossar")
+		default:						addDocToContainer(container, "IAmSeeingGhosts")
+	}
+	
+	return container
+} 
+
+pattern returnParameterAttribute(Document doc){
+	Document doc {
+		name = "wrong"
+	}
+} return doc.name
+
+pattern entryWithEnum(){
+	Entry e {
+		type = testImport.EntryType.METHOD
+	}
+} return this.e
+
+pattern ordering(DocumentationContainer container){
+	container{
+		documents -> doc
+	}
+	Entry e { 
+		name = "WennIchEinDocBinWäreichLieberEinEntry"   
+		type = testImport.EntryType.METHOD
+	}
+	Document doc {
+		name = e.name   
+		entries -> e
+	}  
+}  
+ 
+pattern addDocToContainer(DocumentationContainer container, String name){ 
+	container {
+		documents->doc       
+	} 
+	Document doc{ 
+		name = name
+	} 
+} return this.doc 
+ 
+pattern addDocToContainerWithEntries(DocumentationContainer container, String docName, int i){ 
+	container { 
+		documents->doc      
+	}  
+	Document doc = createDocWithEntries(docName, i, "ChildOf_" + docName)  
+} return this.doc
+
+
+gen testNoneParameter(){
+	var doc = createDocument(none)
+	return doc 
+}
+
+gen testNoneVariable(){
+	var container = createContainer()
+	var doc of Document
+	var name of String  
+ 
+	name = "dolittle"   
+	doc = createDocument(name)
+	
+	return doc  
+}   
+  
+gen testEObjectAsParameter1(){
+	var doc = createDocument("dolittle")
+	return createEObjectParameter(doc)
+} 
+ 
+gen testEObjectAsParameter2(){
+	var e = createSingleEntry()
+	return createEObjectParameter(e)
+} 
+
+pattern createSingleEntry(){
+	Entry e
+} return this.e
+ 
+pattern createEObjectParameter(EObject obj){
+	Document docTest {
+		switch(obj){     
+			case Document d: name = d.name   
+			case Entry e: name = "dolittle"  
+		}            
+	}        
+}return this.docTest
+  
+pattern createDocWithEntries(String docName, int entryNumber, String entryName){ 
+	Document doc {
+		name = docName
+		for i in 0 : entryNumber{     
+			entries->createEntry(entryName, entryNumber)               
+		} 
+	}
+} return this.doc 
+
+pattern createEntry(String entryName, int number){
+	Entry entry {
+		name = entryName + number   
+	}
+} return this.entry
+
+pattern createContainer() {
+	DocumentationContainer container {}
+} return this.container

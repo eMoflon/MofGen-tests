@@ -1,0 +1,146 @@
+import "platform:/resource/ArithmeticsModel/model/arithmeticsModel.ecore" as arithmetics   
+import "platform:/resource/GlossarDocumentation/model/glossarDocumentation.ecore" as testImport
+  
+config(){ 
+	modelLocation="customLocation/test" 
+}              
+       
+gen arithmetics1(){       
+	var number = 5.0 * (12 + 8) / 10 // 10
+	return createNumberResult(number)     
+}             
+     
+gen arithmetics2(){         
+	var number = 5.0 * 12 + 8 // 68
+	return createNumberResult(number)    
+}             
+     
+gen arithmeticsSqrt(){       
+	var number = sqrt(49) // 7 
+	return createNumberResult(number)    
+}  
+
+gen arithmeticsAbs(){
+	var number = abs(-42) // 42
+	return createNumberResult(number)
+}
+
+gen arithmeticsString(){
+	var str = 1+"a"+2+"b" // "1a2b"
+	return createStringResult(str)
+}
+
+gen arithmeticsBoolean1(){
+	var bool = 1 == 1 // true
+	return createBooleanResult(bool)
+}
+
+gen arithmeticsBoolean2(){
+	var bool = 1 < 2 // true
+	return createBooleanResult(bool)
+}
+
+gen arithmeticsBoolean3(){
+	var bool = 3 <= 2 // false
+	return createBooleanResult(bool)
+}
+
+gen arithmeticsBoolean4(){
+	var bool = (none == none) && (true == true) // true
+	return createBooleanResult(bool)  
+}
+
+gen arithmeticsBoolean5(){
+	var bool = (none == none) || (true == false) // true
+	return createBooleanResult(bool)
+}
+
+gen arithmeticsBoolean6(){
+	var bool = (6 % 2 == 1) // false
+	return createBooleanResult(bool)
+}
+
+gen arithmeticsBoolean7(){
+	var bool = true ^ true // false
+	return createBooleanResult(bool)
+}
+
+gen equals1(){
+	var doc1 = createDocument("dolittle")
+	var doc2 = createDocument("dolittle")
+	var bool = doc1 == doc2 
+	return createBooleanResult(bool) // true
+} 
+  
+gen equals2(){
+	var doc1 = createDocument("dolittle")
+	var doc2 = createDocument("dobig")
+	var bool = doc1 == doc2  
+	return createBooleanResult(bool) // false
+}
+
+gen equalsString1(){
+	var doc1 = "dolittle" 
+	var doc2 = "dobig"
+	var bool = doc1 == doc2  
+	return createBooleanResult(bool) // false
+}
+ 
+gen equalsString2(){
+	var doc1 = "dolittle"
+	var doc2 = "dolittle"
+	var bool = doc1 == doc2  
+	return createBooleanResult(bool) // true
+} 
+  
+gen equalsIdentityString1(){
+	var doc1 = "dolittle"
+	var doc2 = doc1
+	var bool = doc1 === doc2  
+	return createBooleanResult(bool) // true
+}
+ 
+gen equalsIdentityString2(){
+	var doc1 = "dolittle"
+	var doc2 = "dobig"
+	var bool = doc1 === doc2  
+	return createBooleanResult(bool) // false
+}
+ 
+gen equalsIdentity1(){
+	var doc1 = createDocument("dolittle")
+	var doc2 = doc1
+	var bool = doc1 === doc2
+	return createBooleanResult(bool) // true
+}
+
+gen equalsIdentity2(){
+	var doc1 = createDocument("dolittle")
+	var doc2 = createDocument("dobig") 
+	var bool = doc1 === doc2
+	return createBooleanResult(bool) // false
+}
+
+pattern createDocument(String name){
+	Document doc {
+		name = name    
+	} 
+} return this.doc
+    
+pattern createNumberResult(double result){
+	NumberResult aRes {  
+		result = result
+	} 
+} return this.aRes
+
+pattern createBooleanResult(boolean result){
+	BooleanResult aRes {  
+		result = result
+	} 
+} return this.aRes
+
+pattern createStringResult(String result){
+	StringResult aRes {  
+		result = result
+	} 
+} return this.aRes

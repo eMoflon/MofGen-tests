@@ -1,0 +1,333 @@
+import "platform:/resource/GlossarDocumentation/model/glossarDocumentation.ecore" as testImport 
+import "platform:/resource/simpleInheritanceModel/model/simpleInheritanceModel.ecore" as abcModel   
+
+config(){   
+}      
+
+gen enumSwitchTest(){
+	var entry = enumSwitchTestPattern()
+	 
+	switch (entry.type){
+		case FIELD: return createB() 
+		case EntryType.METHOD: return createC() 
+	}     
+	 
+	return entry
+}
+   
+pattern enumSwitchTestPattern(){
+	Entry e {
+		type = testImport.EntryType.METHOD
+	} 
+} return this.e
+
+
+gen switchCaseWithoutCast1(){
+	var number = 8/4
+	 
+	switch (number){
+		case 2: return createB() 
+		default: return createC() 
+	}     
+}
+
+gen switchCaseWithoutCast2(){
+	var number = 42-2
+	 
+	switch (number){
+		case 2: return createC() 
+		default: return createB() 
+	}     
+}
+  
+gen switchWithCastVarUsedInWhenTest(){ 
+	var doc = createDoc("firlefanz")
+	
+	switch (doc){
+		case Document docCast when doc.name == "firlefanz": return createB()
+		default: return createC() 
+	}    
+}     
+  
+gen switchWithCastVarUsedInWhenTest2(){ 
+	var doc= createDoc("firlefanz")
+	 
+	switch (doc){ 
+		case Document docCast when doc.name == "firlefanz": doc = createDoc("dolittle")
+		default: return createC() 
+	} 
+	 
+	return doc 
+}
+
+gen earlyReturnInSwitchTest1(){ 
+	var a = createA()
+	
+	switch (a){
+		case B b: return createA() 
+		default: return createB() 
+	}    
+}
+
+gen earlyReturnInSwitchTest2(){
+	var container = createContainer()
+	
+	for i in 1:10 {
+		addDocToContainer(container, createDoc(i))
+		switch {   
+			when i == 5: return container
+		}
+	}
+	
+	return container
+}
+      
+gen forRangeTest(){
+	var container = createContainer() 
+	for i in 1:10 {
+		createDocInContainer(container, "doc"+i)
+	}
+	
+	return container
+} 
+  
+gen ifElseSwitchTest1(){   
+	var container = createContainer() 
+	for number in -3:3 {   
+		switch {
+			when number > 0: createDocInContainer(container, "doc"+number)
+			when number < 0: createDocInContainer(container, "doc"+(-number))
+			default: createDocInContainer(container, "docNull")
+		}  
+	}    
+	return container	
+}          
+
+gen ifElseSwitchTest2(){
+	var container = createContainer()
+	List l1 = ["a", "b", "c", "d", "e"]
+	
+	for i in 0:9 {
+		switch {
+			when i % 2 == 0: createDocInContainer(container, l1.get(i/2))
+			when i % 2 != 0: createDocInContainer(container, i)     
+		} 
+	}   
+	return container 
+}   
+    
+gen ifElseSwitchTestNone1(){
+	var doc of Document
+	var name of String
+	
+	switch {
+		when name == none: {
+			doc = createDoc("NameWasNone")
+		} 
+		when name != none: doc = createDoc("NameWasGiven")    
+	}
+  
+	return doc 
+}
+
+gen ifElseSwitchTestNone2(){
+	var doc of Document
+	var name = "" 
+	       
+	switch { 
+		when name == none: {   
+			doc = createDoc("NameWasNone") 
+		}
+		when name != none: doc = createDoc("NameWasGiven")    
+	}
+
+	return doc
+}
+
+gen castTest(){ 
+	var container = createContainer()
+	List entsAndDocs 
+	var entryPrefix = "entry"  
+	var docPrefix = "doc"  
+  
+	for i in 0:9 { 
+		switch {  
+			when i % 2 == 1: entsAndDocs.add(createEntry(entryPrefix + i))
+			when i % 2 == 0: entsAndDocs.add(createDoc(docPrefix + i))
+		} 
+	}  
+	
+	var docIt of Document 
+	for i in 0:9{  
+		switch (entsAndDocs.get(i)) {
+			case Document doc: {
+				docIt = addDocToContainer(container, doc)
+			}
+			case Entry e: {
+				addEntryToDocument(e, docIt) 
+			}
+		}
+	} 
+	return container
+}  
+
+gen nestedSwitchTest(){
+	var container = createContainer()
+	List entsAndDocs  
+	
+	var entryPrefix = "entry"  
+	var docPrefix = "doc"  
+	    
+	for i in 0:9 {   
+		switch { 
+			when i % 2 == 1: entsAndDocs.add(createEntry(entryPrefix + i))
+			when i % 2 == 0: entsAndDocs.add(createDoc(docPrefix + i))
+		}        
+	}     
+
+	var docIt of Document
+	for i in 0:9 {   
+		switch (entsAndDocs.get(i)) {
+			case Document doc: {  
+				switch {
+					when i % 2 == 1: createDocInContainer(container, "INeverExisted")
+					when i % 2 == 0: createDocInContainer(container, "IAmNew")
+				}
+				docIt = addDocToContainer(container, doc)
+			}
+			case Entry e: {
+				switch {  
+					when i % 2 == 1: {
+						addEntryToDocument(e, docIt)
+						addEntryToDocument(createEntry("IAmNew"), docIt)
+						var newEntry2 = createEntry("IAmNew2")
+						addEntryToDocument(newEntry2, docIt) 
+					}
+					when i % 2 == 0:{
+						addEntryToDocument(e, docIt) 
+					}
+				}
+				
+			} 
+		}
+	} 
+	
+	return container 
+}
+
+gen polymorphicSwitchPatternTest(){
+	var container = createContainer()
+	var b = createB()
+	var c = createC() 
+	
+	addDocToContainer(container, polymorphicSwitchPattern(b))
+	addDocToContainer(container, polymorphicSwitchPattern(c))
+	
+	return container 
+}  
+
+gen nestedSwitchPatternTest(){
+	var b = createB()
+	var doc = nestedSwitchPattern(b)
+	return doc
+}
+
+pattern nestedSwitchPattern(B b){
+	Document doc {
+		switch (b) {
+			case C c: name = none
+			default: { 
+				switch {
+					when false: name = none
+					when true: name = "dolittle"
+				}  
+			} 
+		} 
+	} 
+} return this.doc 
+ 
+pattern polymorphicSwitchPattern(A a){  
+	Document doc {     
+		switch (a){        
+			case B b: name = "b"
+			case C c: name = "c"
+		} 
+	} 
+} return this.doc
+
+gen nestedForTest(){
+	var container = createContainer()
+	
+	List l1 = [1, 2, 3, 4, 5, 6]
+	
+	for it1 in l1 {   
+		for it2 in 1:6{  
+			createDocInContainer(container, it1 * it2)
+		}  
+	}   
+	
+	return container
+} 
+
+gen polymorphicTest1(){
+	var a of A 
+	    
+	a = createB()  
+	switch (a){ 
+		case B b: a = createC()     
+		case C c: a = none 
+	} 
+	
+	switch (a){
+		case B b: a = none
+		default: a = createA()
+	}
+	
+	return a
+}
+
+pattern createA(){
+	A a {}
+} return a
+
+pattern createB(){
+	B b {}
+} return b
+
+pattern createC(){
+	C c {}
+} return c
+
+pattern createEntry(String entryName){
+	Entry e { 
+		name = entryName        
+	}
+} return this.e   
+  
+pattern createDoc(String docName){  
+	Document doc { 
+		name = docName    
+	}
+} return this.doc 
+
+pattern addEntryToDocument(Entry e, Document doc){
+	doc {
+		entries -> e  
+	}
+}
+
+pattern addDocToContainer(DocumentationContainer container, Document doc){
+	container {
+		documents -> doc  
+	}
+} return doc    
+
+pattern createContainer(){
+	DocumentationContainer container {}
+} return this.container
+
+pattern createDocInContainer(DocumentationContainer container, String docName){  
+	container { 
+		documents -> createDoc(docName)
+	}
+}
